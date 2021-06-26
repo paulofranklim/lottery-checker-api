@@ -6,5 +6,13 @@ phases:
     - echo BUILD APLICACAO
     - mvn clean package install
 artifacts:
-  files:
-  - target/*.jar
+  secondary-artifacts:
+    artifact1:
+      files:
+      - target/*.jar
+      name: jar
+    artifact2:
+      files:
+        - directory/file2
+      name: appsec
+discard-paths: yes
