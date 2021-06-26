@@ -17,3 +17,4 @@ phases:
 artifacts:
   files:
     - target/lotterychecker-0.0.1-SNAPSHOT.jar
+    - appsec.yml
