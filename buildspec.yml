@@ -1,0 +1,13 @@
+version: 0.2
+env:
+  
+phases:
+   build:
+    commands:
+    - echo BUILD APLICACAO
+    - mvn clean package install
+artifacts:
+  files:
+  - target/*.jar
+  - appspec.yml
+  discard-paths: yes
