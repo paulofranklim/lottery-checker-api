@@ -1,18 +1,20 @@
 version: 0.2
-  
+
 phases:
-   build:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
     commands:
-    - echo BUILD APLICACAO
-    - mvn clean package install
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn install
+  post_build:
+    commands:
+      - echo Build completed on `date`
 artifacts:
-  secondary-artifacts:
-    artifact1:
-      files:
-      - target/*.jar
-      name: jar
-    artifact2:
-      files:
-        - directory/file2
-      name: appsec
-discard-paths: yes
+  files:
+    - target/lotterychecker-0.0.1-SNAPSHOT.jar
+    - appsec.yml
