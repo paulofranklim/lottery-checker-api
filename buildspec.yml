@@ -9,6 +9,6 @@ artifacts:
   files:
   - target/*.jar
   secondary-artifacts:
-  artifact1:
-   files:
-   - appspec.yml
+    artifact1:
+     files:
+         - appspec.yml
