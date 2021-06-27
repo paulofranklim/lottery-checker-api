@@ -16,19 +16,18 @@ package com.lotterychecker.util;
  */
 
 public class CheckerConstants {
-
+    
     public static final String DDL_AUTO_PROP	   = "${spring.jpa.hibernate.ddl-auto}";
-
+    
     public static final String DELAY_PROP	   = "${application.prop.api.scheduler.delay:3600000}";
     public static final String INITIAL_DELAY_PROP  = "${application.prop.api.scheduler.initial.delay:0}";
     public static final String GAMES_TO_CHECK_PROP = "${application.prop.api.scheduler.game.types}";
     public static final String API_URL_PROP	   = "${application.prop.api.url}";
     public static final String TOKEN_PROP	   = "${application.prop.api.token}";
     public static final String MAIL_ERROR_PROP	   = "${application.prop.api.error.mail}";
-    
+
     public static final String LINE		   = "\n";
-    
+
     public static final String DRAW_NUMBER_PREFIX  = "&concurso=";
-    public static final String LOTOFACIL	   = "lotofacil";
     
 }
