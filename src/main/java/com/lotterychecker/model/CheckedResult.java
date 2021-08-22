@@ -42,9 +42,9 @@ public class CheckedResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long       id;
     private String     gameName;
-    private Long       drawNumber;
-    private String     drawDate;
-    private String     drawNumbers;
+    private Long       drawnNumber;
+    private String     drawnDate;
+    private String     drawnNumbers;
     private String     hittedNumbers;
     private int	       hits;
     private BigDecimal prize;

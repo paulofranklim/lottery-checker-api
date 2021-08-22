@@ -43,7 +43,7 @@ public class Game {
     private int	    numberMin;
     private int	    numberMax;
     private int	    lastPossibleNumber;
-    private Long    lastDraw;
+    private Long    lastDrawn;
     private boolean active;
     
 }
