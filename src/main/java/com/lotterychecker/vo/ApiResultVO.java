@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.vo;
 
 import java.util.List;
@@ -25,7 +22,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class ApiResultVO {
-    
+
     @JsonProperty("numero_concurso")
     private Long	     drawnNumber;
     @JsonProperty("data_concurso")
@@ -36,5 +33,5 @@ public class ApiResultVO {
     private String	     name;
     @JsonProperty("premiacao")
     private List<ApiPrizeVO> prizes;
-
+    
 }
