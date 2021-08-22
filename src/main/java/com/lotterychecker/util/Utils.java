@@ -37,8 +37,8 @@ import com.lotterychecker.vo.MailCredentialsVO;
  * </pre>
  */
 
-public class CheckerUtil {
-    private static final Logger LOG = LogManager.getLogger(CheckerUtil.class);
+public class Utils {
+    private static final Logger LOG = LogManager.getLogger(Utils.class);
 
     public static String getHittedNumbers(String betNumbers, List<Integer> drawNumbers) {
 	LOG.debug("Entry method getHittedNumbers(String betNumbers, List<String> drawNumbers)");

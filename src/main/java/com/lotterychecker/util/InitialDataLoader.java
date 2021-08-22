@@ -45,7 +45,7 @@ public class InitialDataLoader implements ApplicationRunner {
     @Autowired
     private BetRepository	betRepository;
 
-    @Value(CheckerConstants.DDL_AUTO_PROP)
+    @Value(Constants.DDL_AUTO_PROP)
     private String		ddlAutoProp;
     
     @Override
