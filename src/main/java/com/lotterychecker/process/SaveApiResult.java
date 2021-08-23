@@ -28,41 +28,41 @@ import com.lotterychecker.vo.ApiResultVO;
 @Service
 public class SaveApiResult {
     public static final Logger LOG = LogManager.getLogger(SaveApiResult.class);
-    
-    @Autowired
-    ApiResultRepository	       apiResultRepository;
 
     @Autowired
-    GameRepository	       gameReposity;
+    ApiResultRepository	       apiResultRepository;
     
+    @Autowired
+    GameRepository	       gameReposity;
+
     public ApiResult saveApiResult(ApiResultVO vo) {
 	LOG.debug("Entry method saveApiResult(ApiResultVO vo)");
-	
+
 	ApiResult result = null;
-	
+
 	Game game = gameReposity.findGameByName(vo.getName());
-	
+
 	if (game != null && game.getLastDrawn().compareTo(vo.getDrawnNumber()) < 0) {
 	    LOG.debug("game=" + game);
-	    
+
 	    result = new ApiResult();
-	    
+
 	    result.setGameName(vo.getName());
 	    result.setDrawnNumber(vo.getDrawnNumber());
 	    result.setDrawnDate(vo.getDate());
 	    // Saving the array in a string without '[' and ']'
 	    // characters
 	    result.setPrizes(vo.getPrizes().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
-	    result.setAccumulated(false);
-	    result.setAccumulatedValue(null);
-	    result.setNextDrawnDate(null);
-	    result.setNextDrawPrize(null);
-	    
+	    result.setAccumulated(vo.isAccumulated());
+	    result.setAccumulatedValue(vo.getAccumulatedPrize());
+	    result.setNextDrawnDate(vo.getNextDrawnDate());
+	    result.setNextDrawPrize(vo.getNextDrawnPrize());
+
 	    result = apiResultRepository.save(result);
-	    
+
 	    LOG.debug("API Result saved");
 	}
-	
+
 	LOG.debug("result=" + result);
 	LOG.debug("Exit method saveApiResult(ApiResultVO vo)");
 	return result;
