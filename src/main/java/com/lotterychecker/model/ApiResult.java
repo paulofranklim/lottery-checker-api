@@ -35,13 +35,14 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class ApiResult {
-
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long    id;
-    private String  gameName;
+    private Long    gameId;
     private Long    drawnNumber;
     private String  drawnDate;
+    private String  drawnNumbers;
     private boolean accumulated;
     private String  accumulatedValue;
     private String  prizes;

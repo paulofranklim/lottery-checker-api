@@ -1,7 +1,9 @@
 /**
- * 
+ *
  */
 package com.lotterychecker.process;
+
+import org.springframework.stereotype.Service;
 
 /**
  * <pre>
@@ -14,6 +16,11 @@ package com.lotterychecker.process;
  * Copyright 2021 github.com/paulofranklim
  * </pre>
  */
+
+@Service
 public class SendResult {
     
+    public void send() {
+	
+    }
 }

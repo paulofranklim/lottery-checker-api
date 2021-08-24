@@ -35,28 +35,29 @@ public class SaveApiResult {
     @Autowired
     GameRepository	       gameReposity;
 
-    public ApiResult saveApiResult(ApiResultVO vo) {
-	LOG.debug("Entry method saveApiResult(ApiResultVO vo)");
+    public ApiResult save(ApiResultVO vo) {
+	LOG.debug("Entry method save(ApiResultVO vo)");
 
 	ApiResult result = null;
 
 	Game game = gameReposity.findGameByName(vo.getName());
 
 	if (game != null && game.getLastDrawn().compareTo(vo.getDrawnNumber()) < 0) {
-	    LOG.debug("game=" + game);
+	    LOG.debug("game= " + game);
 
 	    result = new ApiResult();
 
-	    result.setGameName(vo.getName());
+	    result.setGameId(game.getId());
 	    result.setDrawnNumber(vo.getDrawnNumber());
 	    result.setDrawnDate(vo.getDate());
-	    // Saving the array in a string without '[' and ']'
-	    // characters
-	    result.setPrizes(vo.getPrizes().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
 	    result.setAccumulated(vo.isAccumulated());
 	    result.setAccumulatedValue(vo.getAccumulatedPrize());
 	    result.setNextDrawnDate(vo.getNextDrawnDate());
 	    result.setNextDrawPrize(vo.getNextDrawnPrize());
+	    // Saving the array in a string without '[' and ']'
+	    // characters
+	    result.setPrizes(vo.getPrizes().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
+	    result.setDrawnNumbers(vo.getNumbers().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
 
 	    result = apiResultRepository.save(result);
 
@@ -64,7 +65,7 @@ public class SaveApiResult {
 	}
 
 	LOG.debug("result=" + result);
-	LOG.debug("Exit method saveApiResult(ApiResultVO vo)");
+	LOG.debug("Exit method save(ApiResultVO vo)");
 	return result;
     }
 }
