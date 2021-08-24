@@ -28,6 +28,10 @@ public class Constants {
     
     public static final String LINE		   = "\n";
 
+    public static final String MAIL_SUBJECT	   = "Lottery Checker - Drawn ";
+    public static final String ERROR_MAIL_SUBJECT  = "ERROR LOTTERY CHECKER";
+    public static final String ERROR_MAIL_MESSAGE  = "Error on Lottery Checker Application. ";
+    
     public static final String DRAW_NUMBER_PREFIX  = "&concurso=";
     
 }

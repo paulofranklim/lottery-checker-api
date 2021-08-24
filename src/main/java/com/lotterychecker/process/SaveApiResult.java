@@ -26,26 +26,26 @@ import com.lotterychecker.vo.ApiResultVO;
 
 @Service
 public class SaveApiResult {
-    public static final Logger LOG = LogManager.getLogger(SaveApiResult.class);
-    
-    @Autowired
-    ApiResultRepository	       apiResultRepository;
+    public static final Logger	LOG = LogManager.getLogger(SaveApiResult.class);
 
     @Autowired
-    GameRepository	       gameReposity;
+    private ApiResultRepository	apiResultRepository;
     
+    @Autowired
+    private GameRepository	gameReposity;
+
     public ApiResult save(ApiResultVO vo) {
 	LOG.debug("Entry method save(ApiResultVO vo)");
-	
+
 	ApiResult result = null;
-	
+
 	Game game = gameReposity.findGameByName(vo.getName());
-	
+
 	if (game != null && game.getLastDrawn().compareTo(vo.getDrawnNumber()) < 0) {
 	    LOG.debug("game= " + game);
-	    
+
 	    result = new ApiResult();
-	    
+
 	    result.setGameId(game.getId());
 	    result.setDrawnNumber(vo.getDrawnNumber());
 	    result.setDrawnDate(vo.getDate());
@@ -55,12 +55,12 @@ public class SaveApiResult {
 	    result.setNextDrawPrize(vo.getNextDrawnPrize());
 	    result.setPrizes(Utils.listSeparetedWithComaToString(vo.getPrizes()));
 	    result.setDrawnNumbers(Utils.listSeparetedWithComaToString(vo.getNumbers()));
-	    
+
 	    result = apiResultRepository.save(result);
-	    
+
 	    LOG.debug("API Result saved");
 	}
-	
+
 	LOG.debug("result=" + result);
 	LOG.debug("Exit method save(ApiResultVO vo)");
 	return result;

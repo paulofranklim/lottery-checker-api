@@ -40,30 +40,31 @@ import com.lotterychecker.vo.ApiPrizeVO;
 
 @Service
 public class ProcessResult {
-    private static final Logger	LOG = LogManager.getLogger(ProcessResult.class);
+    private static final Logger	    LOG	= LogManager.getLogger(ProcessResult.class);
     
     @Autowired
-    BetRepository		betRepository;
+    private BetRepository	    betRepository;
 
     @Autowired
-    UserRepository		userRepository;
+    private UserRepository	    userRepository;
     
     @Autowired
-    GameRepository		gameRepository;
+    private GameRepository	    gameRepository;
     
     @Autowired
-    CheckedResultRepository	checkedResultRepository;
+    private CheckedResultRepository checkedResultRepository;
     
-    public void process(ApiResult apiResult, List<ApiPrizeVO> prizeList) {
+    public List<CheckedResult> process(ApiResult apiResult, List<ApiPrizeVO> prizeList) {
 	LOG.debug("Entry method process(ApiResult apiResult, List<ApiPrizeVO> prizeList)");
 
 	LOG.debug("Selecting all bets for game id = " + apiResult.getGameId());
-	List<Bet> bets = betRepository.findAllBetsForGame(apiResult.getGameId());
+	List<Bet> bets = betRepository.findAllBetsForGameOrderedByUserId(apiResult.getGameId());
 	
+	List<CheckedResult> results = new ArrayList<CheckedResult>();
+
 	if (!bets.isEmpty()) {
 	    LOG.debug("Selected " + bets.size() + " bets.");
-	    List<CheckedResult> results = new ArrayList<CheckedResult>();
-	    
+
 	    HashMap<Long, BigDecimal> prizes = new HashMap<Long, BigDecimal>();
 	    prizeList.forEach(p -> prizes.put(Long.valueOf(p.getHits()), new BigDecimal(p.getTotalValue())));
 	    LOG.debug("Prizes= " + prizeList);
@@ -74,6 +75,7 @@ public class ProcessResult {
 
 		CheckedResult checkedResult = new CheckedResult();
 		checkedResult.setUserId(user.getId());
+		checkedResult.setUserMail(user.getMail());
 		checkedResult.setBetId(bet.getId());
 		checkedResult.setBetNumbers(bet.getNumbers());
 		checkedResult.setGameId(bet.getGameId());
@@ -105,6 +107,7 @@ public class ProcessResult {
 	gameRepository.save(game);
 
 	LOG.debug("Exit method process(ApiResult apiResult, List<ApiPrizeVO> prizeList)");
+	return results;
     }
     
 }

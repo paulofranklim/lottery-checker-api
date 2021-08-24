@@ -37,13 +37,14 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class CheckedResult {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long       id;
     private Long       gameId;
     private Long       betId;
     private Long       userId;
+    private String     userMail;
     private Long       drawnNumber;
     private String     drawnDate;
     private String     drawnNumbers;
@@ -52,5 +53,5 @@ public class CheckedResult {
     private int	       hits;
     private BigDecimal prize;
     private boolean    sent;
-
+    
 }
