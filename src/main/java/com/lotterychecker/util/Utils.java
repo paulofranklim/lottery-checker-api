@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.util;
 
 import java.time.Instant;
@@ -9,10 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,22 +36,26 @@ import com.lotterychecker.vo.MailCredentialsVO;
  * </pre>
  */
 
-public class CheckerUtil {
-    private static final Logger LOG = LogManager.getLogger(CheckerUtil.class);
+public class Utils {
+    private static final Logger LOG = LogManager.getLogger(Utils.class);
 
-    public static String getHittedNumbers(String betNumbers, List<Integer> drawNumbers) {
-	LOG.debug("Entry method getHittedNumbers(String betNumbers, List<String> drawNumbers)");
+    public static String getHittedNumbers(String betNumbers, String drawnNumbers) {
+	LOG.debug("Entry method getHittedNumbers(String betNumbers, String drawNumbers)");
 
 	List<Integer> betNumbersList = new ArrayList<Integer>();
-	for (String number : Arrays.asList(betNumbers.split(","))) {
+	for (String number : betNumbers.split(",")) {
 	    betNumbersList.add(Integer.valueOf(number));
 	}
 
+	List<Integer> drawnNumbersList = new ArrayList<Integer>();
+	for (String number : drawnNumbers.split(",")) {
+	    drawnNumbersList.add(Integer.valueOf(number));
+	}
 	TreeSet<Integer> orderedHittedNumbers = new TreeSet<Integer>();
-	orderedHittedNumbers.addAll(betNumbersList.stream().distinct().filter(drawNumbers::contains).collect(Collectors.toSet()));
-	
-	LOG.debug("Exit method getHittedNumbers(String betNumbers, List<String> drawNumbers)");
-	return orderedHittedNumbers.toString().replace(" ", "").replace("[", "").replace("]", "");
+	orderedHittedNumbers.addAll(betNumbersList.stream().distinct().filter(drawnNumbersList::contains).collect(Collectors.toSet()));
+
+	LOG.debug("Exit method getHittedNumbers(String betNumbers, String drawNumbers)");
+	return listSeparetedWithComaToString(orderedHittedNumbers);
     }
 
     public static String getApiJSON(String url) {
@@ -93,5 +96,24 @@ public class CheckerUtil {
 	LOG.debug("formattedData=" + formattedData);
 	LOG.debug("Exit method dateTimeFormatter(Instant instant)");
 	return formattedData;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static String listSeparetedWithComaToString(Collection list) {
+	LOG.debug("Entry method listSeparetedWithComaToString(Collection list)");
+	String result = "";
+	
+	if (!list.isEmpty()) {
+	    // Saving the array in a string without '[' and ']'
+	    // characters
+	    Stream stream = list.stream();
+	    result = (String) stream.map(e -> e.toString()).collect(Collectors.joining(","));
+	    LOG.debug("entry= " + list.toString());
+	    LOG.debug("exit= " + result);
+	}
+
+	LOG.debug("Exit method listSeparetedWithComaToString(Collection list)");
+	return result;
+	
     }
 }
