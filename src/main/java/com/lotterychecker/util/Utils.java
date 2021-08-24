@@ -6,10 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,9 +53,9 @@ public class Utils {
 	}
 	TreeSet<Integer> orderedHittedNumbers = new TreeSet<Integer>();
 	orderedHittedNumbers.addAll(betNumbersList.stream().distinct().filter(drawnNumbersList::contains).collect(Collectors.toSet()));
-	
+
 	LOG.debug("Exit method getHittedNumbers(String betNumbers, String drawNumbers)");
-	return orderedHittedNumbers.stream().map(s -> s.toString()).collect(Collectors.joining(","));
+	return listSeparetedWithComaToString(orderedHittedNumbers);
     }
 
     public static String getApiJSON(String url) {
@@ -94,5 +96,24 @@ public class Utils {
 	LOG.debug("formattedData=" + formattedData);
 	LOG.debug("Exit method dateTimeFormatter(Instant instant)");
 	return formattedData;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static String listSeparetedWithComaToString(Collection list) {
+	LOG.debug("Entry method listSeparetedWithComaToString(Collection list)");
+	String result = "";
+	
+	if (!list.isEmpty()) {
+	    // Saving the array in a string without '[' and ']'
+	    // characters
+	    Stream stream = list.stream();
+	    result = (String) stream.map(e -> e.toString()).collect(Collectors.joining(","));
+	    LOG.debug("entry= " + list.toString());
+	    LOG.debug("exit= " + result);
+	}
+
+	LOG.debug("Exit method listSeparetedWithComaToString(Collection list)");
+	return result;
+	
     }
 }
