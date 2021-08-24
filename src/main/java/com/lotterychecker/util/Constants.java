@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.util;
 
 /**
@@ -27,11 +24,15 @@ public class Constants {
     public static final String MAIL_ERROR_PROP	   = "${application.prop.api.error.mail}";
     
     public static final String LINE		   = "\n";
+    public static final String DRAW_NUMBER_PREFIX  = "&concurso=";
 
     public static final String MAIL_SUBJECT	   = "Lottery Checker - Drawn ";
     public static final String ERROR_MAIL_SUBJECT  = "ERROR LOTTERY CHECKER";
     public static final String ERROR_MAIL_MESSAGE  = "Error on Lottery Checker Application. ";
-    
-    public static final String DRAW_NUMBER_PREFIX  = "&concurso=";
+    public static final String YOUR_BET_NUMBERS	   = "Your bet numbers: ";
+    public static final String DRAWN_NUMBERS	   = "The drawn numbers: ";
+    public static final String YOUR_HITS	   = "Your hits: ";
+    public static final String QTY_HITS		   = "Quantity of hits: ";
+    public static final String YOUR_PRIZE	   = "Your prize: ";
     
 }

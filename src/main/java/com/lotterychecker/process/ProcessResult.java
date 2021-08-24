@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.process;
 
 import java.math.BigDecimal;
@@ -40,7 +37,7 @@ import com.lotterychecker.vo.ApiPrizeVO;
 
 @Service
 public class ProcessResult {
-    private static final Logger	    LOG	= LogManager.getLogger(ProcessResult.class);
+    private static final Logger	    LOG	   = LogManager.getLogger(ProcessResult.class);
     
     @Autowired
     private BetRepository	    betRepository;
@@ -54,6 +51,8 @@ public class ProcessResult {
     @Autowired
     private CheckedResultRepository checkedResultRepository;
     
+    HashMap<Long, BigDecimal>	    prizes = new HashMap<Long, BigDecimal>();
+    
     public List<CheckedResult> process(ApiResult apiResult, List<ApiPrizeVO> prizeList) {
 	LOG.debug("Entry method process(ApiResult apiResult, List<ApiPrizeVO> prizeList)");
 
@@ -65,7 +64,6 @@ public class ProcessResult {
 	if (!bets.isEmpty()) {
 	    LOG.debug("Selected " + bets.size() + " bets.");
 
-	    HashMap<Long, BigDecimal> prizes = new HashMap<Long, BigDecimal>();
 	    prizeList.forEach(p -> prizes.put(Long.valueOf(p.getHits()), new BigDecimal(p.getTotalValue())));
 	    LOG.debug("Prizes= " + prizeList);
 
@@ -84,7 +82,7 @@ public class ProcessResult {
 		checkedResult.setDrawnNumbers(apiResult.getDrawnNumbers());
 		checkedResult.setHittedNumbers(Utils.getHittedNumbers(bet.getNumbers(), apiResult.getDrawnNumbers()));
 		checkedResult.setHits(checkedResult.getHittedNumbers().split(",").length);
-		checkedResult.setPrize(prizes.get(Long.valueOf(checkedResult.getHits())));
+		checkedResult.setPrize(setPrize(checkedResult.getHits()));
 
 		bet.setLastCheck(LocalDate.now());
 		results.add(checkedResult);
@@ -108,6 +106,15 @@ public class ProcessResult {
 
 	LOG.debug("Exit method process(ApiResult apiResult, List<ApiPrizeVO> prizeList)");
 	return results;
+    }
+    
+    private BigDecimal setPrize(int hits) {
+	LOG.debug("Entry method BigDecimal setPrize(int hits) ");
+	
+	BigDecimal value = prizes.get(Long.valueOf(hits));
+	
+	LOG.debug("Exit method BigDecimal setPrize(int hits) ");
+	return value != null ? value : BigDecimal.ZERO;
     }
     
 }

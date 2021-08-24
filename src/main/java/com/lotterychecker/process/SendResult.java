@@ -53,8 +53,7 @@ public class SendResult {
 		credentials = new MailCredentialsVO();
 	    }
 	    
-	    message.append(result.getHittedNumbers() + Constants.LINE);
-	    message.append(result.getHits() + Constants.LINE);
+	    message.append(appendMessageInfo(result));
 	    credentials.setMessage(message);
 	    credentials.setSubject(Constants.MAIL_SUBJECT + gameName + " - " + result.getDrawnNumber());
 	    credentials.setTo(result.getUserMail());
@@ -68,5 +67,20 @@ public class SendResult {
 
 	}
 	LOG.debug("Exit method send(List<CheckedResult> checkedResults, String gameName)");
+    }
+    
+    private String appendMessageInfo(CheckedResult result) {
+	LOG.debug("Entry method appendMessageInfo(CheckedResult result)");
+	
+	StringBuilder message = new StringBuilder();
+	message.append(Constants.YOUR_BET_NUMBERS + result.getBetNumbers() + Constants.LINE);
+	message.append(Constants.DRAWN_NUMBERS + result.getDrawnNumbers() + Constants.LINE);
+	message.append(Constants.YOUR_HITS + result.getHittedNumbers() + Constants.LINE);
+	message.append(Constants.QTY_HITS + result.getHits() + Constants.LINE);
+	message.append(Constants.YOUR_PRIZE + result.getPrize() + Constants.LINE);
+	message.append(Constants.LINE);
+
+	LOG.debug("Ecit method appendMessageInfo(CheckedResult result)");
+	return message.toString();
     }
 }
