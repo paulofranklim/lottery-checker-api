@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,5 +25,10 @@ public class ApiPrizeVO {
     
     @JsonProperty("acertos")
     private String hits;
-    
+
+    @Override
+    public String toString() {
+	return hits + "=" + totalValue;
+    }
+
 }

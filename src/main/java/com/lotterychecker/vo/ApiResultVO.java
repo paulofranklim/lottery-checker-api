@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.vo;
 
 import java.util.List;
@@ -27,14 +24,30 @@ import lombok.Data;
 public class ApiResultVO {
 
     @JsonProperty("numero_concurso")
-    private Long	     drawNumber;
+    private Long	     drawnNumber;
+
     @JsonProperty("data_concurso")
     private String	     date;
+
     @JsonProperty("dezenas")
     private List<Integer>    numbers;
+
     @JsonProperty("nome")
     private String	     name;
+
     @JsonProperty("premiacao")
     private List<ApiPrizeVO> prizes;
+
+    @JsonProperty("acumulou")
+    private boolean	     accumulated;
+
+    @JsonProperty("valor_acumulado")
+    private String	     accumulatedPrize;
+
+    @JsonProperty("data_proximo_concurso")
+    private String	     nextDrawnDate;
+
+    @JsonProperty("valor_estimado_proximo_concurso")
+    private String	     nextDrawnPrize;
     
 }

@@ -3,8 +3,6 @@
  */
 package com.lotterychecker.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +23,7 @@ import lombok.ToString;
  * Log File       : N/A
  * Output file    : N/A
  *
- * Copyright 2020 github.com/paulofranklim
+ * Copyright 2021 github.com/paulofranklim
  * </pre>
  */
 
@@ -36,22 +34,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class CheckedResult {
+public class ApiResult {
     
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long       id;
-    private Long       gameId;
-    private Long       betId;
-    private Long       userId;
-    private String     userMail;
-    private Long       drawnNumber;
-    private String     drawnDate;
-    private String     drawnNumbers;
-    private String     betNumbers;
-    private String     hittedNumbers;
-    private int	       hits;
-    private BigDecimal prize;
-    private boolean    sent;
-    
+    @Id
+    private Long    id;
+    private Long    gameId;
+    private Long    drawnNumber;
+    private String  drawnDate;
+    private String  drawnNumbers;
+    private boolean accumulated;
+    private String  accumulatedValue;
+    private String  prizes;
+    private String  nextDrawnDate;
+    private String  nextDrawPrize;
 }
