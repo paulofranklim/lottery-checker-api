@@ -1,11 +1,15 @@
 package com.lotterychecker.util;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -15,12 +19,6 @@ import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import com.lotterychecker.vo.MailCredentialsVO;
 
@@ -60,16 +58,23 @@ public class Utils {
 
     public static String getApiJSON(String url) {
 	LOG.debug("Entry method getApiJSON(String url)");
+	
+	var result = "";
+	var request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Constants.API_TIMEOUT).build();
+	var client = HttpClient.newBuilder().connectTimeout(Constants.API_TIMEOUT).build();
 
-	RestTemplate restTemplate = new RestTemplate();
-	HttpHeaders headers = new HttpHeaders();
-	headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
-	HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-	ResponseEntity<String> res = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+	try {
+	    var response = client.send(request, BodyHandlers.ofString());
+	    LOG.debug("response= " + response);
+	    result = response.body();
+	}
+	catch (IOException | InterruptedException e) {
+	    result = e.getMessage();
+	    LOG.error("Error to call API. Error= " + result);
+	}
 
 	LOG.debug("Exit method getApiJSON(String url)");
-	return res.getBody();
+	return result;
     }
     
     public static MailCredentialsVO createErrorMailCredentials(String errorMsg, String mail) {
