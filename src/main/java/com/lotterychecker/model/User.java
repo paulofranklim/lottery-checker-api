@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.model;
 
 import javax.persistence.Entity;
@@ -35,7 +32,7 @@ import lombok.ToString;
 @ToString(exclude = { "password" })
 @EqualsAndHashCode
 public class User {
-    
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long    id;
@@ -44,5 +41,5 @@ public class User {
     private String  userName;
     private String  password;
     private boolean active;
-    
+
 }

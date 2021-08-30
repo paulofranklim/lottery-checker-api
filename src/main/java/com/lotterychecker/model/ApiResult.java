@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.model;
 
 import javax.persistence.Entity;
@@ -35,7 +32,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class ApiResult {
-    
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long    id;

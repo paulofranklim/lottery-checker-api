@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.vo;
 
 import lombok.Data;
@@ -19,9 +16,9 @@ import lombok.Data;
 
 @Data
 public class MailCredentialsVO {
-    
+
     private String	  subject;
     private String	  to;
     private StringBuilder message;
-    
+
 }

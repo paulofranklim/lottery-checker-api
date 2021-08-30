@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +19,5 @@ import com.lotterychecker.model.ApiResult;
 
 @Repository
 public interface ApiResultRepository extends JpaRepository<ApiResult, Long> {
-    
+
 }
