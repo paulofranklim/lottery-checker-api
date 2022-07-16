@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +19,7 @@ import com.lotterychecker.model.Game;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
-
+    
     Game findGameByName(String game);
-
+    
 }

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.controller;
 
 import java.util.List;
@@ -31,12 +28,12 @@ import com.lotterychecker.service.BetService;
 
 @RestController
 public class BetController {
-
-    private static final Logger	LOG = LogManager.getLogger(BetController.class);
     
+    private static final Logger	LOG = LogManager.getLogger(BetController.class);
+
     @Autowired
     private BetService		service;
-
+    
     @RequestMapping(value = "save-bet", method = RequestMethod.POST)
     public String saveBet(@RequestBody Bet bet) {
 	LOG.debug("Entry method saveBet(@RequestBody Bet bet)");
@@ -45,32 +42,32 @@ public class BetController {
 	LOG.debug("Exit method saveBet(@RequestBody Bet bet)");
 	return "Bet created. id=" + savedBet.getId();
     }
-    
+
     @RequestMapping(value = "load-bet/{id}", method = RequestMethod.GET)
     public Bet loadBet(@PathVariable("id") String id) {
 	LOG.debug("Entry method loadBet(@PathVariable(\"id\") String id) ");
-
+	
 	Bet bet = service.getBet(id);
 	LOG.debug("Exit method loadBet(@PathVariable(\"id\") String id)");
 	return bet;
     }
-    
+
     @RequestMapping(value = "load-bets", method = RequestMethod.GET)
     public List<Bet> loadAllBets() {
 	LOG.debug("Entry method loadAllBets()");
-
+	
 	List<Bet> bets = service.getAllBets();
 	LOG.debug("Exit method loadAllBets()");
 	return bets;
     }
-    
+
     @RequestMapping(value = "load-bets/{id}", method = RequestMethod.GET)
     public List<Bet> loadUserBets(@PathVariable("id") String id) {
 	LOG.debug("Entry method loadUserBets(@PathVariable(\"id\") String id)  ");
-
+	
 	List<Bet> bets = service.getAllUserBets(id);
 	LOG.debug("Exit method loadUserBets(@PathVariable(\"id\") String id) ");
 	return bets;
     }
-
+    
 }

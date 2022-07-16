@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.controller;
 
 import java.util.List;
@@ -31,12 +28,12 @@ import com.lotterychecker.service.UserService;
 
 @RestController
 public class UserController {
-    
+
     private static final Logger	LOG = LogManager.getLogger(UserController.class);
-    
+
     @Autowired
     private UserService		service;
-    
+
     @RequestMapping(value = "save-user", method = RequestMethod.POST)
     public String saveUser(@RequestBody User user) {
 	LOG.debug("Entry method saveUser(@RequestBody User user)");
@@ -45,23 +42,23 @@ public class UserController {
 	LOG.debug("Exit method saveUser(@RequestBody User user)");
 	return "User '" + savedUser.getName() + "' created. id=" + savedUser.getId();
     }
-    
+
     @RequestMapping(value = "load-user/{id}", method = RequestMethod.GET)
     public User loadUser(@PathVariable("id") String id) {
 	LOG.debug("Entry method loadUser(@PathVariable(\"id\") String id) ");
-	
+
 	User user = service.getUser(id);
 	LOG.debug("Exit method loadUser(@PathVariable(\"id\") String id)");
 	return user;
     }
-
+    
     @RequestMapping(value = "load-users", method = RequestMethod.GET)
     public List<User> loadAllUsers() {
 	LOG.debug("Entry method loadAllUsers()");
-	
+
 	List<User> users = service.getAllUsers();
 	LOG.debug("Exit method loadAllUsers()");
 	return users;
     }
-    
+
 }

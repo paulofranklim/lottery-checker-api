@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,8 +19,8 @@ import com.lotterychecker.model.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+    
     @Query("select u from User u where u.userName = ?1 and u.password = ?2")
     public User getAuthenticatedUser(String mail, String password);
-
+    
 }

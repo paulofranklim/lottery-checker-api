@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.controller;
 
 import java.util.List;
@@ -32,10 +29,10 @@ import com.lotterychecker.service.GameService;
 @RestController
 public class GameController {
     private static final Logger	LOG = LogManager.getLogger(GameController.class);
-
+    
     @Autowired
     private GameService		service;
-
+    
     @RequestMapping(value = "save-game", method = RequestMethod.POST)
     public String saveGame(@RequestBody Game game) {
 	LOG.debug("Entry method saveGame(@RequestBody Game game)");
@@ -44,23 +41,23 @@ public class GameController {
 	LOG.debug("Exit method saveGame(@RequestBody Game game)");
 	return "Game '" + savedGame.getName() + "' created. id=" + savedGame.getId();
     }
-    
+
     @RequestMapping(value = "load-game/{id}", method = RequestMethod.GET)
     public Game loadGame(@PathVariable("id") String id) {
 	LOG.debug("Entry method loadGame(@PathVariable(\"id\") String id) ");
-	
+
 	Game game = service.getGame(id);
 	LOG.debug("Exit method loadGame(@PathVariable(\"id\") String id)");
 	return game;
     }
-
+    
     @RequestMapping(value = "load-games", method = RequestMethod.GET)
     public List<Game> loadAllGames() {
 	LOG.debug("Entry method loadAllGames()");
-	
+
 	List<Game> games = service.getAllGames();
 	LOG.debug("Exit method loadAllGames()");
 	return games;
     }
-
+    
 }

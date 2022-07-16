@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.repository;
 
 import java.util.List;
@@ -25,15 +22,15 @@ import com.lotterychecker.model.Bet;
 
 @Repository
 public interface BetRepository extends JpaRepository<Bet, Long> {
-    
+
     /**
      * @param id
      * @return
      */
     @Query("select b from Bet b where b.gameId = ?1 order by b.userId")
     public List<Bet> findAllBetsForGameOrderedByUserId(Long gameId);
-    
+
     @Query("select b from Bet b where b.userId = ?1")
     public List<Bet> findAllUserBets(Long id);
-    
+
 }

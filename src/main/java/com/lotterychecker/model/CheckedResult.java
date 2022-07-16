@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.model;
 
 import java.math.BigDecimal;
@@ -37,7 +34,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class CheckedResult {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long       id;
@@ -53,5 +50,5 @@ public class CheckedResult {
     private int	       hits;
     private BigDecimal prize;
     private boolean    sent;
-    
+
 }

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lotterychecker.service;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,14 +23,14 @@ import com.lotterychecker.repository.UserRepository;
 @Service
 public class AuthenticationService {
     private static final Logger	LOG = LogManager.getLogger(AuthenticationService.class);
-    
+
     @Autowired
     private UserRepository	repository;
-
+    
     public User auth(String mail, String password) {
 	LOG.debug("Entry method auth(String mail, String password)");
 	LOG.debug("mail=" + mail);
-
+	
 	User result = repository.getAuthenticatedUser(mail, password);
 	if (result != null) {
 	    LOG.debug("Cleaning password");
@@ -42,9 +39,9 @@ public class AuthenticationService {
 	if (!result.isActive()) {
 	    throw new RuntimeException("The user is not active.");
 	}
-
+	
 	LOG.debug("Entry method auth(String mail, String password)");
 	return result;
     }
-
+    
 }
